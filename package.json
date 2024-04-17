@@ -1,0 +1,32 @@
+{
+  "name": "cordova-plugin-tapsdk",
+  "version": "1.0.0",
+  "description": "Cordova TapTap SDK 插件",
+  "cordova": {
+    "id": "cordova-plugin-tapsdk",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tadazly/cordova-plugin-tapsdk.git"
+  },
+  "keywords": [
+    "cordova",
+    "tapsdk",
+    "taptap",
+    "tap",
+    "sdk",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "tadazly",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/tadazly/cordova-plugin-tapsdk/issues"
+  },
+  "homepage": "https://github.com/tadazly/cordova-plugin-tapsdk#readme",
+  "types": "./types/index.d.ts"
+}

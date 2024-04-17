@@ -1,0 +1,7 @@
+dependencies {
+    implementation files('libs/TapUpdate_3.28.3.aar')
+    implementation files('libs/TapCommon_3.28.3.aar')
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'androidx.core:core:1.6.0'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+}
