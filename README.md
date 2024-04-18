@@ -1,6 +1,6 @@
 # cordova-plugin-tapsdk
 
-Cordova app 用 TapTap SDK，目前只计划接入`更新唤起`。
+Cordova app 用 TapTap SDK，目前只接入`更新唤起`。
 
 ## Part I. 更新唤起
 ### 👇功能介绍，详情请阅读[TapTap文档](https://developer.taptap.cn/docs/sdk/update/features/)
@@ -37,8 +37,8 @@ Cordova app 用 TapTap SDK，目前只计划接入`更新唤起`。
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 <queries>
-        <package android:name="com.taptap" />
-        <package android:name="com.taptap.global" />
+    <package android:name="com.taptap" />
+    <package android:name="com.taptap.global" />
 </queries>
 ```
 
@@ -49,17 +49,22 @@ Cordova app 用 TapTap SDK，目前只计划接入`更新唤起`。
 ### 安装插件
 - 通过npm安装
 ``` shell
-cordova plugin add cordova-plugin-tapsdk --variable TAP_CLIENT_ID=XXX TAP_CLIENT_TOKEN=XXX
+cordova plugin add cordova-plugin-tapsdk --variable TAP_CLIENT_ID=XXX --variable TAP_CLIENT_TOKEN=XXX
 ```
 
 - 通过git链接安装
 ``` shell
-cordova plugin add https://github.com/tadazly/cordova-plugin-tapsdk.git --variable TAP_CLIENT_ID=XXX TAP_CLIENT_TOKEN=XXX
+cordova plugin add https://github.com/tadazly/cordova-plugin-tapsdk.git --variable TAP_CLIENT_ID=XXX --variable TAP_CLIENT_TOKEN=XXX
 ```
 
 - 本地调试
 ``` shell
 cordova plugin add /Your/path/to/cordova-plugin-tapsdk --variable TAP_CLIENT_ID=XXX --variable TAP_CLIENT_TOKEN=XXX --link
+```
+
+- 移除插件
+``` shell
+cordova plugin rm cordova-plugin-tapsdk --variable TAP_CLIENT_ID=XXX --variable TAP_CLIENT_TOKEN=XXX
 ```
 
 ### 调用更新接口
@@ -75,9 +80,20 @@ function updateGame(onCancel?: () => void): void;
 Example:
 ``` js
 if (__currentVersion__ < __latestVersion__) {
-    TapSDK.updateGame(() => {
-        // 取消更新的回掉函数，可不传
-        console.log('Uh oh, 用户取消更新了哦')
-    })
+    alert(`发现新版本（${__latestVersion__}），请立即更新！`, ()=>{
+        switch (__channel__) {
+            case 'taptap':
+                TapSDK.updateGame(() => {
+                    // 取消更新的回掉函数，可不传
+                    console.log('Uh oh, 用户取消更新了哦');
+                    location.reload(true);
+                });
+                break;
+            default:
+                window.open(__otherChannelDownloadLink__, '_system');
+                location.reload(true);
+                break;
+        }
+    }, '新版本提示', '立即前往');
 }
 ```
